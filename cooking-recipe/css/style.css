@@ -1,0 +1,206 @@
+/* 加入Google font Roboto分別載入字重100,400,700 */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700');
+/*==================== general ====================*/
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    /*background-color: #1E3C4B;*/
+    min-height: 1000px;
+    /* 設定背景圖 */
+    background-image: url("../img/cork-repeat.jpg");
+}
+
+.card-wrapper {
+    /* 設定透視 */
+    /* 1000px ~ 2000px */
+    perspective: 1000px;
+}
+
+.card {
+    width: 600px;
+    margin: 100px auto;
+}
+
+.card>.upper-section,
+.card>.lower-section {
+    padding: 20px 20px;
+    position: relative;
+}
+
+/*==================== fonts ====================*/
+
+* {
+    color: #333;
+}
+
+.dish-name {
+    font-size: 50px;
+    letter-spacing: 8px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 100;
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+/*==================== upper-section ====================*/
+
+.upper-section {
+    background-color: white;
+    height: 220px;
+    z-index: 5;
+    color: white;
+    /* 設定背景圖 */
+    background-image: url("../img/salmon-steak.jpg");
+    background-size: cover;
+    /* 預設向後折 */
+    transform: rotateX(20deg);
+    /* 調整軸心位置 */
+    transform-origin: bottom;
+    /* 設定filter屬性控制照片明亮與飽和度 */
+    filter: brightness(1.2) grayscale(70%);
+}
+
+@media(max-width: 576px) {
+    .upper-section {
+        transform: rotateX(0deg);
+    }
+}
+
+.upper-section .text {
+    margin-top: 80px;
+}
+
+.upper-section * {
+    color: white;
+}
+
+.upper-section p {
+    margin: 0;
+}
+
+.price {
+    margin-top: 0px;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 100;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    /* 設定預設為透明 */
+    /* opacity: 0(透明) ~ 1(不透明) */
+    opacity: 0;
+}
+
+/* 顯示$在價格前，並顯示貨幣單位於價格後 */
+
+/* input沒有支援:before, :after */
+
+.price:before {
+    content: "$";
+    margin-right: 5px;
+}
+
+.price:after {
+    content: "NTD";
+    margin-left: 5px;
+}
+
+/*==================== note lower-section ====================*/
+
+.lower-section {
+    background-color: white;
+    z-index: 1;
+    /* 預設向後折 */
+    transform: rotateX(-100deg);
+    transform-origin: top;
+}
+
+@media(max-width: 576px) {
+    .lower-section {
+        transform: rotateX(0deg);
+    }
+}
+
+.ingredients {
+    list-style: none;
+    padding-left: 0;
+}
+
+.ingredients>li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    padding-left: 50px;
+    border-bottom: 1px dashed #dbdbdb;
+    position: relative;
+    /* 設定滑鼠游標樣式讓使用者知道是可以點選的 */
+    cursor: pointer;
+}
+
+/* 選到.ingredients>li但是這個li要有一個class="done" */
+
+.ingredients>li.done {
+    text-decoration: line-through;
+}
+
+.ingredients>li:before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #aaa;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 6px;
+}
+
+.ingredients>li.done:before {
+    background-image: url("../img/checked.svg");
+    background-repeat: no-repeat;
+    /* background-position: 左右位置(left|center|right) 上下位置(top|center|bottom); */
+    background-position: center center;
+}
+
+/* 利用偽元素設計checklist點擊圖樣 */
+
+/*==================== animation ====================*/
+
+/* 設定.card:hover動畫的transition */
+
+.upper-section,
+.lower-section,
+.price {
+    transition: all .8s ease;
+    -moz-transition: all .8s ease;
+    -webkit-transition: all .8s ease;
+}
+
+/* 設定.card:hover後折回的3D動畫 */
+
+/* 當.card:hover改變.card裡面.upper-section,.lower-section的css */
+
+.card:hover>.upper-section,
+.card:hover>.lower-section {
+    transform: rotateX(0deg);
+    filter: brightness(1) grayscale(0%);
+}
+
+/* 設定.card:hover後顯示.price 並加大margin-top */
+
+/* 使用空格選擇一個被包在.card裡面的.price(不論隔幾層都能選到) */
+
+/* .card:hover>.upper-section>.text>.price { } */
+
+.card:hover .price {
+    opacity: 1;
+    margin-top: 20px;
+}
